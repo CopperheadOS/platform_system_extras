@@ -116,11 +116,11 @@ static uint8_t e4crypt_get_policy_flags(int filenames_encryption_mode) {
     // efficient for encryption and decryption, and we had the opportunity to
     // make a breaking change when introducing a new mode anyway.
     if (filenames_encryption_mode == EXT4_ENCRYPTION_MODE_AES_256_HEH) {
-        return EXT4_POLICY_FLAGS_PAD_16;
+        return EXT4_POLICY_FLAGS_PAD_32;
     }
 
     // Default flags (4-byte padding) for CTS
-    return EXT4_POLICY_FLAGS_PAD_4;
+    return EXT4_POLICY_FLAGS_PAD_32;
 }
 
 static bool e4crypt_policy_set(const char *directory, const char *policy,
