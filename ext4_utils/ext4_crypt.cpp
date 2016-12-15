@@ -136,13 +136,13 @@ static bool is_dir_empty(const char *dirname, bool *is_empty)
 static uint8_t e4crypt_get_policy_flags(int filenames_encryption_mode) {
     if (filenames_encryption_mode == EXT4_ENCRYPTION_MODE_AES_256_CTS) {
         // Use legacy padding with our original filenames encryption mode.
-        return EXT4_POLICY_FLAGS_PAD_4;
+        return EXT4_POLICY_FLAGS_PAD_32;
     }
     // With a new mode we can use the better padding flag without breaking existing devices: pad
     // filenames with zeroes to the next 16-byte boundary.  This is more secure (helps hide the
     // length of filenames) and makes the inputs evenly divisible into blocks which is more
     // efficient for encryption and decryption.
-    return EXT4_POLICY_FLAGS_PAD_16;
+    return EXT4_POLICY_FLAGS_PAD_32;
 }
 
 static bool e4crypt_policy_set(const char *directory, const char *policy,
