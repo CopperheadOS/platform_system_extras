@@ -121,7 +121,7 @@ static bool is_dir_empty(const char *dirname, bool *is_empty)
 static uint8_t fscrypt_get_policy_flags(int filenames_encryption_mode) {
     if (filenames_encryption_mode == FS_ENCRYPTION_MODE_AES_256_CTS) {
         // Use legacy padding with our original filenames encryption mode.
-        return FS_POLICY_FLAGS_PAD_4;
+        return FS_POLICY_FLAGS_PAD_32;
     } else if (filenames_encryption_mode == FS_ENCRYPTION_MODE_ADIANTUM) {
         // Use DIRECT_KEY for Adiantum, since it's much more efficient but just
         // as secure since Android doesn't reuse the same master key for
@@ -132,7 +132,7 @@ static uint8_t fscrypt_get_policy_flags(int filenames_encryption_mode) {
     // filenames with zeroes to the next 16-byte boundary.  This is more secure (helps hide the
     // length of filenames) and makes the inputs evenly divisible into blocks which is more
     // efficient for encryption and decryption.
-    return FS_POLICY_FLAGS_PAD_16;
+    return FS_POLICY_FLAGS_PAD_32;
 }
 
 static bool fscrypt_policy_set(const char *directory, const char *policy,
